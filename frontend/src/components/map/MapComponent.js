@@ -48,7 +48,7 @@ const MapController = ({ center, zoom }) => {
   const map = useMap();
   
   useEffect(() => {
-    if (center) {
+    if (center && center.lat && center.lng) {
       map.setView([center.lat, center.lng], zoom);
     }
   }, [center, zoom, map]);
@@ -138,11 +138,26 @@ const MapComponent = ({
   }
 
   return (
-    <Box sx={{ position: 'relative', height }}>
+    <Box sx={{ 
+      position: 'center', 
+      height: '110%', 
+      width: '100%', 
+      overflow: 'hidden',
+      '& .leaflet-container': {
+        height: '100%',
+        width: '100%'
+      }
+    }}>
       <MapContainer
         center={[center.lat, center.lng]}
         zoom={zoom}
-        style={{ height: '100%', width: '100%' }}
+        style={{ 
+          height: '100%',
+          width: '100%', 
+          display: 'flex',
+          border: 'none',
+          outline: 'none'
+        }}
         ref={mapRef}
       >
         <MapController center={center} zoom={zoom} />
@@ -291,7 +306,7 @@ const MapComponent = ({
                   width: 12,
                   height: 12,
                   bgcolor: '#4caf50',
-                  borderRadius: '50%',
+                  borderRadius: '10%',
                   mr: 1,
                 }}
               />
